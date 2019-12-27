@@ -29,15 +29,20 @@ public class Overdrive extends JavaPlugin {
 			try {
 				tickrate = Integer.valueOf( args[ 0 ] );
 			} catch ( Exception exception ) {
-				sender.sendMessage( ChatColor.RED + "Please provide an integer!" );
+				sender.sendMessage( ChatColor.RED + "Please provide an integer! (Minimum 1)" );
 				return false;
 			}
-			double tickSpeed = 1000.0 / tickrate;
-			handler.setTickDuration( ( int ) tickSpeed );
-			sender.sendMessage( ChatColor.WHITE + "Tickrate set to " + ChatColor.YELLOW + tickrate + ChatColor.WHITE + " ticks per second" );
+			if ( tickrate <= 0 ) {
+				sender.sendMessage( ChatColor.RED + "The tickrate must be at least 1 tick per second!" );
+				return false;
+			}
+			
+			long tickSpeed = 1000L / tickrate;
+			handler.setTickDuration( tickSpeed );
+			sender.sendMessage( ChatColor.WHITE + "Tickrate set to " + ChatColor.YELLOW + ( tickSpeed == 0 ? "∞" : tickrate ) + ChatColor.WHITE + " tick(s) per second" );
 		} else {
-			double tickrate = 1000.0 / handler.getTickDuration();
-			sender.sendMessage( ChatColor.WHITE + "Current tickrate is " + ChatColor.YELLOW + ( ( int ) tickrate ) + ChatColor.WHITE + "(" + ChatColor.YELLOW + handler.getTickDuration() + "ms" + ChatColor.WHITE + ") ticks per second." );
+			long duration = handler.getTickDuration();
+			sender.sendMessage( ChatColor.WHITE + "Current tickrate is " + ChatColor.YELLOW + ( duration == 0 ? "∞" : ( 1000L / duration ) ) + ChatColor.WHITE + "(" + ChatColor.YELLOW + duration + "ms" + ChatColor.WHITE + ") tick(s) per second." );
 		}
 		return true;
 	}

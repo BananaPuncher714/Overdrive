@@ -23,7 +23,8 @@ Overdrive supports these versions only:
 Do not ask about previous versions, they will not be added.  
 
 ### Spigot
-Find this plugin on SpigotMC [here](https://www.spigotmc.org/resources/73779/).
+Find this plugin on **SpigotMC** [here](https://www.spigotmc.org/resources/73779/).
+This plugin does not work with **Paperspigot**!
 
 ---
 ## **Extra**

@@ -42,7 +42,7 @@ public class Handler_v1_15_R1 implements NMSHandler {
 			try {
 				long curTick = nextTick.getLong( MinecraftServer.getServer() );
 				
-				curTick += ( tickLength - 50 );
+				curTick += ( tickLength - 50L );
 				
 				nextTick.set( MinecraftServer.getServer(), curTick );
 			} catch ( IllegalArgumentException | IllegalAccessException e ) {
