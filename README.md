@@ -24,7 +24,7 @@ Do not ask about previous versions, they will not be added.
 
 ### Spigot
 Find this plugin on **SpigotMC** [here](https://www.spigotmc.org/resources/73779/).
-This plugin supports **Paperspigot** and **Spigot**
+This plugin supports **Paper** and **Spigot**
 
 ---
 ## **Extra**

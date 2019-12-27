@@ -61,7 +61,7 @@ public class Handler_v1_14_R1 implements NMSHandler {
 			StackTraceElement element = elements[ i ];
 			int lineNumber = element.getLineNumber();
 			// 819 for Spigot 1.14.4
-			// 928 for Paperspigot 1.14.4
+			// 928 for Paper 1.14.4
 			if ( ( lineNumber == 819 || lineNumber == 928 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
 				return true;
 			}
