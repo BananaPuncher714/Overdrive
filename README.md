@@ -20,13 +20,13 @@ Overdrive supports these versions only:
 - 1.15
 - 1.15.1
 - 1.15.2
+- 1.16.1
 Unfortunately, Paper is *NOT* supported due to code reasons.
 
 Do not ask about previous versions, they will not be added.  
 
 ### Spigot
 Find this plugin on **SpigotMC** [here](https://www.spigotmc.org/resources/73779/).
-This plugin supports **Paper** and **Spigot**
 
 ---
 ## **Extra**
