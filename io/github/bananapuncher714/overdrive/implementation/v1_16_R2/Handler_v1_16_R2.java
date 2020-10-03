@@ -7,7 +7,7 @@ import io.github.bananapuncher714.overdrive.api.NMSHandler;
 import net.minecraft.server.v1_16_R2.MinecraftServer;
 import net.minecraft.server.v1_16_R2.SystemUtils;
 
-public class Handler_v1_16_R1 implements NMSHandler {
+public class Handler_v1_16_R2 implements NMSHandler {
 	private static Field nextTick;
 	
 	static {
@@ -21,7 +21,7 @@ public class Handler_v1_16_R1 implements NMSHandler {
 	
 	protected static long tickLength = 50L;
 	
-	public Handler_v1_16_R1() {
+	public Handler_v1_16_R2() {
 		SystemUtils.a = this::nanoTime;
 	}
 	
