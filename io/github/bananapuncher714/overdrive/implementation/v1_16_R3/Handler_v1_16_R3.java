@@ -1,13 +1,13 @@
-package io.github.bananapuncher714.overdrive.implementation.v1_16_R2;
+package io.github.bananapuncher714.overdrive.implementation.v1_16_R3;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 
 import io.github.bananapuncher714.overdrive.api.NMSHandler;
-import net.minecraft.server.v1_16_R2.MinecraftServer;
-import net.minecraft.server.v1_16_R2.SystemUtils;
+import net.minecraft.server.v1_16_R3.MinecraftServer;
+import net.minecraft.server.v1_16_R3.SystemUtils;
 
-public class Handler_v1_16_R2 implements NMSHandler {
+public class Handler_v1_16_R3 implements NMSHandler {
 	private static Field nextTick;
 	
 	static {
@@ -21,7 +21,7 @@ public class Handler_v1_16_R2 implements NMSHandler {
 	
 	protected static long tickLength = 50L;
 	
-	public Handler_v1_16_R2() {
+	public Handler_v1_16_R3() {
 		SystemUtils.a = this::nanoTime;
 	}
 	
@@ -65,7 +65,6 @@ public class Handler_v1_16_R2 implements NMSHandler {
 			// 936 for Paper 1.15.1 and 1.15
 			// 852 for Spigot 1.16.1
 			// 849 for Spigot 1.16.3
-			// 849 for Spigot 1.16.4
 			// Unfortunately, Paper doesn't work since Aikar removed the SystemUtils usage
 			if ( ( lineNumber == 849 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
 				return true;
