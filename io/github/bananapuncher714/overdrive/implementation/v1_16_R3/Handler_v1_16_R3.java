@@ -65,8 +65,9 @@ public class Handler_v1_16_R3 implements NMSHandler {
 			// 936 for Paper 1.15.1 and 1.15
 			// 852 for Spigot 1.16.1
 			// 849 for Spigot 1.16.3
+			// 850 for Spigot 1.16.4 and 1.16.5
 			// Unfortunately, Paper doesn't work since Aikar removed the SystemUtils usage
-			if ( ( lineNumber == 849 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
+			if ( ( lineNumber == 849 || lineNumber == 850 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
 				return true;
 			}
 		}
