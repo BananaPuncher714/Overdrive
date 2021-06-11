@@ -56,7 +56,12 @@ public class Handler_v1_16_R3 implements NMSHandler {
 	}
 	
 	private boolean needsUpdate() {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+		StackTraceElement[] elements = new StackTraceElement[ 0 ];
+		try {
+			throw new Exception();
+		} catch ( Exception e ) {
+			elements = e.getStackTrace();
+		}
 		for ( int i = 0; i < elements.length; i++ ) {
 			StackTraceElement element = elements[ i ];
 			int lineNumber = element.getLineNumber();
@@ -66,8 +71,9 @@ public class Handler_v1_16_R3 implements NMSHandler {
 			// 852 for Spigot 1.16.1
 			// 849 for Spigot 1.16.3
 			// 850 for Spigot 1.16.4 and 1.16.5
+			// 969 for Spigot 1.16.5?
 			// Unfortunately, Paper doesn't work since Aikar removed the SystemUtils usage
-			if ( ( lineNumber == 849 || lineNumber == 850 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
+			if ( ( lineNumber == 849 || lineNumber == 850 || lineNumber == 969 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
 				return true;
 			}
 		}

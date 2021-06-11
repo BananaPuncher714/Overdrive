@@ -1,18 +1,18 @@
-package io.github.bananapuncher714.overdrive.implementation.v1_15_R1;
+package io.github.bananapuncher714.overdrive.implementation.v1_17_R1;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 
 import io.github.bananapuncher714.overdrive.api.NMSHandler;
-import net.minecraft.server.v1_15_R1.MinecraftServer;
-import net.minecraft.server.v1_15_R1.SystemUtils;
+import net.minecraft.SystemUtils;
+import net.minecraft.server.MinecraftServer;
 
-public class Handler_v1_15_R1 implements NMSHandler {
+public class Handler_v1_17_R1 implements NMSHandler {
 	private static Field nextTick;
 	
 	static {
 		try {
-			nextTick = MinecraftServer.class.getDeclaredField( "nextTick" );
+			nextTick = MinecraftServer.class.getDeclaredField( "ao" );
 			nextTick.setAccessible( true );
 		} catch ( NoSuchFieldException | SecurityException e ) {
 			e.printStackTrace();
@@ -21,7 +21,7 @@ public class Handler_v1_15_R1 implements NMSHandler {
 	
 	protected static long tickLength = 50L;
 	
-	public Handler_v1_15_R1() {
+	public Handler_v1_17_R1() {
 		SystemUtils.a = this::nanoTime;
 	}
 	
@@ -56,20 +56,20 @@ public class Handler_v1_15_R1 implements NMSHandler {
 	}
 	
 	private boolean needsUpdate() {
-		StackTraceElement[] elements = new StackTraceElement[ 0 ];
-		try {
-			throw new Exception();
-		} catch ( Exception e ) {
-			elements = e.getStackTrace();
-		}
+		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		for ( int i = 0; i < elements.length; i++ ) {
 			StackTraceElement element = elements[ i ];
 			int lineNumber = element.getLineNumber();
 			// 826 for Spigot 1.15.1 and 1.15
 			// 827 for Spigot 1.15.2
 			// 936 for Paper 1.15.1 and 1.15
+			// 852 for Spigot 1.16.1
+			// 849 for Spigot 1.16.3
+			// 850 for Spigot 1.16.4 and 1.16.5
+			// 969 for Spigot 1.16.5?
+			// 1029 for Spigot 1.17
 			// Unfortunately, Paper doesn't work since Aikar removed the SystemUtils usage
-			if ( ( lineNumber == 826 || lineNumber == 827 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
+			if ( ( lineNumber == 1029 ) && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
 				return true;
 			}
 		}

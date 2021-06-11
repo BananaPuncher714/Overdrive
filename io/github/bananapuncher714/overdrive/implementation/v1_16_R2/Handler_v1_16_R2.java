@@ -56,7 +56,12 @@ public class Handler_v1_16_R2 implements NMSHandler {
 	}
 	
 	private boolean needsUpdate() {
-		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+		StackTraceElement[] elements = new StackTraceElement[ 0 ];
+		try {
+			throw new Exception();
+		} catch ( Exception e ) {
+			elements = e.getStackTrace();
+		}
 		for ( int i = 0; i < elements.length; i++ ) {
 			StackTraceElement element = elements[ i ];
 			int lineNumber = element.getLineNumber();
