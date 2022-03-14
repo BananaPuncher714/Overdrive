@@ -28,6 +28,7 @@ Overdrive supports these versions only:
 - 1.17
 - 1.17.1
 - 1.18.1    
+- 1.18.2
 
 Unfortunately, Paper is *NOT* supported due to code reasons.
 
