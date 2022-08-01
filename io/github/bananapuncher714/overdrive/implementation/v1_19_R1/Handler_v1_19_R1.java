@@ -2,6 +2,9 @@ package io.github.bananapuncher714.overdrive.implementation.v1_19_R1;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
+import java.util.function.LongSupplier;
+
+import org.bukkit.Bukkit;
 
 import io.github.bananapuncher714.overdrive.api.NMSHandler;
 import net.minecraft.SystemUtils;
@@ -9,6 +12,7 @@ import net.minecraft.server.MinecraftServer;
 
 public class Handler_v1_19_R1 implements NMSHandler {
 	private static Field nextTick;
+	private static boolean is1 = false;
 	
 	static {
 		try {
@@ -17,12 +21,27 @@ public class Handler_v1_19_R1 implements NMSHandler {
 		} catch ( NoSuchFieldException | SecurityException e ) {
 			e.printStackTrace();
 		}
+		
+		is1 = Bukkit.getBukkitVersion().startsWith( "1.19.1" );
 	}
 	
 	protected static long tickLength = 50L;
 	
 	public Handler_v1_19_R1() {
-		SystemUtils.a = this::nanoTime;
+		try {
+			SystemUtils.class.getField( "a" ).set( null, new LongSupplier() {
+				@Override
+				public long getAsLong() {
+					return nanoTime();
+				}
+			} );
+		} catch ( Exception e ) {
+			try {
+				SystemUtils.class.getField( "a" ).set( null, new CustomTimeSource( this::nanoTime ) );
+			} catch ( IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e1 ) {
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	@Override
@@ -72,8 +91,10 @@ public class Handler_v1_19_R1 implements NMSHandler {
 			// 1037 for Spigot 1.18.1
 			// 1050 for Spigot 1.18.2
 			// 1013 for Spigot 1.19
+			// 1016 for Spigot 1.19.1
 			// Unfortunately, Paper doesn't work since Aikar removed the SystemUtils usage
-			if ( lineNumber == 1013 && element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
+			if ( ( ( lineNumber == 1013 && !is1 ) || ( lineNumber == 1016 && is1 ) ) &&
+					element.getClassName().equalsIgnoreCase( MinecraftServer.class.getName() ) ) {
 				return true;
 			}
 		}
